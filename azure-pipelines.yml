@@ -57,9 +57,9 @@ steps:
     timeoutInMinutes: 0
 
   - script: |
-      $(visualStudioInstallerFile) --passive --layout VS$(visualStudioVersion)-$(version)_layout_Common+Flutter --lang en-US --add Microsoft.VisualStudio.Workload.ManagedDesktop --includeRecommended --includeOptional --add Microsoft.VisualStudio.Workload.NetWeb --includeRecommended --includeOptional --add Microsoft.VisualStudio.Workload.NativeDesktop --includeRecommended --add Microsoft.VisualStudio.Workload.Universal --includeRecommended --add Microsoft.VisualStudio.ComponentGroup.UWP.VC --add Microsoft.VisualStudio.ComponentGroup.UWP.VC.v141
+      $(visualStudioInstallerFile) --passive --layout VS$(visualStudioVersion)-$(version)_layout_Common+Flutter --lang en-US --add Microsoft.VisualStudio.Workload.ManagedDesktop --includeRecommended --includeOptional --add Microsoft.VisualStudio.Workload.NetWeb --includeRecommended --includeOptional --add Microsoft.VisualStudio.Workload.NativeDesktop --includeRecommended --add Microsoft.VisualStudio.Workload.Universal --includeRecommended --add Microsoft.VisualStudio.ComponentGroup.UWP.VC
       dir VS$(visualStudioVersion)-$(version)_layout_Common+Flutter
-    displayName: 'Download VS$(visualStudioVersion) $(version) Common, NativeDesktop (Reduced) & Universal (Reduced) Items with UWP C++ tools'
+    displayName: 'Download VS$(visualStudioVersion) $(version) Common, NativeDesktop (Reduced) & Universal (Reduced) Items with (Reduced) UWP C++ tools'
     condition: eq(variables['Build.SourceBranchName'], 'Common+Flutter')
     timeoutInMinutes: 0
 
