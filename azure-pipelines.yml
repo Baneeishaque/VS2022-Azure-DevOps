@@ -14,11 +14,8 @@ variables:
   repositoryName: vs2022_Azure_DevOps
   visualStudioVersion: 2022
   # Secret Variables
-#  MAPPED_FTP_HOST: $(FTP_HOST)
-#  MAPPED_FTP_USER: $(FTP_USER)
-#  MAPPED_FTP_PWD: $(FTP_PWD)
-  MAPPED_MEGA_USERNAME: $(MEGA_USERNAME)
-  MAPPED_MEGA_PASSWORD: $(MEGA_PASSWORD)
+#   MAPPED_MEGA_USERNAME: $(MEGA_USERNAME)
+#   MAPPED_MEGA_PASSWORD: $(MEGA_PASSWORD)
 
 steps:
   - script: |
@@ -55,25 +52,16 @@ steps:
       echo --------------------------------------------------------
       dir
     displayName: 'Zip VS$(visualStudioVersion) $(version) $(Build.SourceBranchName) Directory'
-  # # Upload Workload Directory Zip File
-  # - task: FtpUpload@2
-  #   displayName: 'FTP Upload VS$(visualStudioVersion) $(version) $(Build.SourceBranchName) Directory Zip File'
-  #   inputs:
-  #     credentialsOption: inputs
-  #     serverUrl: 'ftp://$(MAPPED_FTP_HOST)'
-  #     username: $(MAPPED_FTP_USER)
-  #     password: $(MAPPED_FTP_PWD)
-  #     # TODO : Add option for file instead of directory
-  #     rootDirectory: '.'
-  #     remoteDirectory: '/public_html/files/$(repositoryName)/$(Build.SourceVersion)'
-  #     filePatterns: 'VS$(visualStudioVersion)-$(version)_layout_$(Build.SourceBranchName).zip'
+
   - publish: VS$(visualStudioVersion)-$(version)_layout_$(Build.SourceBranchName).zip
     artifact: VS$(visualStudioVersion) $(version) $(Build.SourceBranchName)
-  - script: |
-      CALL megatools-1.11.0-git-20210505-win64\megatools.exe test -d /Root/$(repositoryName) --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
-      IF ERRORLEVEL 1 (
-        CALL megatools-1.11.0-git-20210505-win64\megatools.exe mkdir /Root/$(repositoryName) --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
-      )
-    displayName: 'Mega : Check & Create (if not available) $(repositoryName) Folder'
-  - script: CALL megatools-1.11.0-git-20210505-win64\megatools.exe put --path /Root/$(repositoryName)/VS$(visualStudioVersion)-$(version)_layout_$(Build.SourceBranchName).zip VS$(visualStudioVersion)-$(version)_layout_$(Build.SourceBranchName).zip --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
-    displayName: 'Mega : Upload VS$(visualStudioVersion) $(version) $(Build.SourceBranchName) Directory Zip File'
+  
+#   - script: |
+#       CALL megatools-1.11.0-git-20210505-win64\megatools.exe test -d /Root/$(repositoryName) --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
+#       IF ERRORLEVEL 1 (
+#         CALL megatools-1.11.0-git-20210505-win64\megatools.exe mkdir /Root/$(repositoryName) --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
+#       )
+#     displayName: 'Mega : Check & Create (if not available) $(repositoryName) Folder'
+  
+#   - script: CALL megatools-1.11.0-git-20210505-win64\megatools.exe put --path /Root/$(repositoryName)/VS$(visualStudioVersion)-$(version)_layout_$(Build.SourceBranchName).zip VS$(visualStudioVersion)-$(version)_layout_$(Build.SourceBranchName).zip --username $(MAPPED_MEGA_USERNAME) --password $(MAPPED_MEGA_PASSWORD)
+#     displayName: 'Mega : Upload VS$(visualStudioVersion) $(version) $(Build.SourceBranchName) Directory Zip File'
